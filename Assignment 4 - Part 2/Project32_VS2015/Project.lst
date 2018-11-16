@@ -1,0 +1,89 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    03/20/17 19:03:57
+Anaeki2.asm						     Page 1 - 1
+
+
+				COMMENT $Student: Jerome Anaeki 
+				Class: CSC 3210 
+				Assignment#: 4, Part 2
+				Description: This program uses a loop with indirect addressing to swap elements of an 
+				integer array.$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.data
+ 00000000 00000001		array DWORD 1,2,3,4,5,6,7,8,9,10,11,12
+	   00000002
+	   00000003
+	   00000004
+	   00000005
+	   00000006
+	   00000007
+	   00000008
+	   00000009
+	   0000000A
+	   0000000B
+	   0000000C
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  BE 00000000 R		mov esi,OFFSET array		;ESI=1
+ 00000005  B9 00000006			mov ecx,LENGTHOF array/2	;ECX=12/2=6
+ 0000000A				L1:							;label for loop
+ 0000000A  8B 06			mov eax,[esi]				;moves value of ESI from array into EAX
+ 0000000C  83 C6 04			add esi,TYPE array			;ESI moves right and points to next value in array
+ 0000000F  87 06			xchg eax,[esi]				;swaps the value in EAX with value pointed to with ESI
+ 00000011  83 EE 04			sub esi,TYPE array			;ESI moves left and points to previous value in array
+ 00000014  87 06			xchg eax,[esi]				;swaps the value in EAX with value pointed to with ESI
+ 00000016  83 C6 08			add esi,TYPE array*2		;ESI skips the next value and points to the value after
+ 00000019  E2 EF			loop L1						;decrements ECX, then compares to zero
+
+					invoke ExitProcess,0
+ 0000001B  6A 00	   *	    push   +000000000h
+ 0000001D  E8 00000000 E   *	    call   ExitProcess
+ 00000022			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    03/20/17 19:03:57
+Anaeki2.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000030 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000022 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000022 Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000000A _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+array  . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

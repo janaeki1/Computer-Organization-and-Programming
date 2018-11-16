@@ -1,0 +1,99 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    03/15/17 17:40:08
+Anaeki4.asm						     Page 1 - 1
+
+
+				COMMENT $Student: Jerome Anaeki 
+				Class: CSC 3210 
+				Assignment#: 4, Part 4
+				Description: This program computes the expression: 
+				for (i = 6; i > 0; i--)
+					{
+					for(j = 3; j > 0; j--)
+						{
+						y = i + j ;
+						}
+					}
+				The variables i, j and y are 32-bit registers.$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.data
+ 00000000 00000003		i DWORD 3
+ 00000004 00000002		j DWORD 2
+ 00000008 00000000		y DWORD ?
+ 0000000C 00000000		count DWORD ?
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  8B 15 00000008 R		mov edx,y		;moves y into EDX
+ 00000006  8B 0D 00000000 R		mov ecx,i		;moves 6 into ECX
+ 0000000C				L1:				;label for loop
+ 0000000C  89 0D 0000000C R		mov count,ecx	;saves count of outer loop
+ 00000012  8B 0D 00000004 R		mov ecx,j		;moves 3 into ECX
+ 00000018				L2:				;label for loop
+ 00000018  A1 00000000 R		mov eax,i		;moves i into EAX
+ 0000001D  8B 1D 00000004 R		mov ebx,j		;moves j into EBX
+ 00000023  03 C3			add eax,ebx		;adds EBX to EAX
+ 00000025  8B D0			mov edx,eax		;moves EAX to EDX and EDX=2(eventually)
+ 00000027  FF 0D 00000004 R		dec j			;decrements j
+ 0000002D  E2 E9			loop L2			;decrements ECX, then compares to zero
+ 0000002F  C7 05 00000004 R		mov j,2			;moves 3 to j
+	   00000002
+ 00000039  FF 0D 00000000 R		dec i			;decrements i
+ 0000003F  8B 0D 0000000C R		mov ecx,count	;moves saved count to ECX
+ 00000045  E2 C5			loop L1			;decrements ECX, then compares to zero
+
+					invoke ExitProcess,0
+ 00000047  6A 00	   *	    push   +000000000h
+ 00000049  E8 00000000 E   *	    call   ExitProcess
+ 0000004E			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    03/15/17 17:40:08
+Anaeki4.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000010 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000004E DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000004E Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000000C _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 00000018 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+count  . . . . . . . . . . . . .	DWord	 0000000C _DATA	
+i  . . . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+j  . . . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+y  . . . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+
+	   0 Warnings
+	   0 Errors
