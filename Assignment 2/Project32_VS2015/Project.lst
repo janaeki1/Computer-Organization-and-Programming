@@ -1,0 +1,72 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    02/26/17 17:45:19
+Assignment 2.asm					     Page 1 - 1
+
+
+				COMMENT $Student: Jerome Anaeki
+				Class: CSC 3210
+				Assignment: 2
+				Description: This program calculates the expression: "A = (A + B) - (C + D)" by assigning integer values 
+				to the EAX, EBX, ECX, and EDX registers.$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  B8 00000001			mov	eax,1	;moves 1 to the eax register
+ 00000005  BB 00000002			mov	ebx,2	;moves 2 to the ebx register
+ 0000000A  03 C3			add eax,ebx	;adds ebx register to eax register
+
+ 0000000C  B9 00000003			mov	ecx,3	;moves 3 to the ecx register
+ 00000011  BA 00000004			mov	edx,4	;moves 4 to the edx register
+ 00000016  03 CA			add ecx,edx	;adds edx register to ecx register
+					
+ 00000018  2B C1			sub eax,ecx	;removes ecx register from eax register
+
+					invoke ExitProcess,0
+ 0000001A  6A 00	   *	    push   +000000000h
+ 0000001C  E8 00000000 E   *	    call   ExitProcess
+ 00000021			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    02/26/17 17:45:19
+Assignment 2.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000021 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000021 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+
+	   0 Warnings
+	   0 Errors

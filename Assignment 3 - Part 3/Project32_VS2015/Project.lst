@@ -1,0 +1,69 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    03/07/17 11:32:16
+Anaeki3.asm						     Page 1 - 1
+
+
+				COMMENT $Student: Jerome Anaeki 
+				Class: CSC 3210 Assignment: 3, Part 3 
+				Description: This program reorders the byte values of "10113A1Ch" in little-endian order.$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.data
+ 00000000 1C 3A 11 10		myDWORD BYTE 1Ch,3Ah,11h,10h
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  A0 00000000 R		mov	al,myDWORD		;stores "1C" in al register
+ 00000005  8A 1D 00000001 R		mov	bl,myDWORD+1	;stores "3A" in bl register
+ 0000000B  8A 0D 00000002 R		mov	cl,myDWORD+2	;stores "11" in cl register
+ 00000011  8A 15 00000003 R		mov dl,myDWORD+3	;stores "10" in dl register
+
+					invoke ExitProcess,0
+ 00000017  6A 00	   *	    push   +000000000h
+ 00000019  E8 00000000 E   *	    call   ExitProcess
+ 0000001E			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    03/07/17 11:32:16
+Anaeki3.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000004 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000001E DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001E Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+myDWORD  . . . . . . . . . . . .	Byte	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors
