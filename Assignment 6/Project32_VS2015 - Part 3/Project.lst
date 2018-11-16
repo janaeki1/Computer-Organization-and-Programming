@@ -1,0 +1,86 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/21/17 21:30:03
+Anaeki3.asm						     Page 1 - 1
+
+
+				COMMENT $
+				Student: Jerome Anaeki 
+				Class: CSC 3210 
+				Assignment#: 6, Part 3
+				Description: This program is a subroutine that multiplies any unsigned 32-bit integer by the EAX.
+				$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  B8 0000000A			mov eax,10					;(used to test subroutine)
+ 00000005  BB 00000014			mov ebx,20					;(used to test subroutine)
+ 0000000A  E8 00000000			call ShiftMultiplication	;(used to test subroutine)
+
+ 0000000F			ShiftMultiplication proc
+ 0000000F  B9 00000008			mov ecx,8			;traversing eight digits
+ 00000014  8B D0			mov edx,eax			;saves multiplicand
+ 00000016  B8 00000000			mov eax,0			;clears EAX
+ 0000001B			multiplier:
+ 0000001B  D1 EB			shr ebx,1			;shifts multiplier right
+ 0000001D  73 02			jnc multiplicand	;if carry flag clear, skip addition to result
+ 0000001F  03 C2			add eax,edx			;addition to result
+ 00000021			multiplicand:	
+ 00000021  D1 E2			shl edx,1			;shifts multiplicand left
+ 00000023  49				dec ecx				;decrements count
+ 00000024  83 F9 00			cmp ecx,0			;tests if ECX=0
+ 00000027  75 F2			jnz multiplier		;ends subroutine if ECX=0
+ 00000029  C3				ret
+ 0000002A			ShiftMultiplication endp
+
+					invoke ExitProcess,0
+ 0000002A  6A 00	   *	    push   +000000000h
+ 0000002C  E8 00000000 E   *	    call   ExitProcess
+ 00000031			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/21/17 21:30:03
+Anaeki3.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000031 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ShiftMultiplication  . . . . . .	P Near	 0000000F _TEXT	Length= 0000001B Public STDCALL
+  multiplier . . . . . . . . . .	L Near	 0000001B _TEXT	
+  multiplicand . . . . . . . . .	L Near	 00000021 _TEXT	
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000031 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+
+	   0 Warnings
+	   0 Errors

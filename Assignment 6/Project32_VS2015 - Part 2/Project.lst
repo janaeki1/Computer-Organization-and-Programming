@@ -1,0 +1,86 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/21/17 13:43:53
+Anaeki2.asm						     Page 1 - 1
+
+
+				COMMENT $
+				Student: Jerome Anaeki 
+				Class: CSC 3210 
+				Assignment#: 6, Part 2
+				Description: This program implements the following expression:
+
+				val = (val2/val3)*(val4+val2)-(val4*3)
+				$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.data
+ 00000000 00000000		val1 SDWORD ?
+ 00000004 00000028		val2 SDWORD +40
+ 00000008 00000014		val3 SDWORD +20
+ 0000000C 0000000A		val4 SDWORD +10
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  A1 00000004 R		mov	eax,val2	;EAX=40
+ 00000005  99				cdq				;extends EAX to EDX
+ 00000006  F7 3D 00000008 R		idiv val3		;EAX=40/20=2
+ 0000000C  8B 1D 0000000C R		mov ebx,val4	;EBX=10
+ 00000012  03 1D 00000004 R		add ebx,val2	;EBX=10+40=50
+ 00000018  F7 EB			imul ebx		;EAX=2*50=100
+ 0000001A  8B 1D 0000000C R		mov ebx,val4	;EBX=10
+ 00000020  6B DB 03			imul ebx,3		;EAX=10*3=30
+ 00000023  2B C3			sub eax,ebx		;EAX=100-30=70
+ 00000025  A3 00000000 R		mov val1,eax	;val1=70
+
+					invoke ExitProcess,0
+ 0000002A  6A 00	   *	    push   +000000000h
+ 0000002C  E8 00000000 E   *	    call   ExitProcess
+ 00000031			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/21/17 13:43:53
+Anaeki2.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000010 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000031 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000031 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+val1 . . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+val2 . . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+val3 . . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+val4 . . . . . . . . . . . . . .	DWord	 0000000C _DATA	
+
+	   0 Warnings
+	   0 Errors

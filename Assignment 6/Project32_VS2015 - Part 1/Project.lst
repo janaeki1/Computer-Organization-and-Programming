@@ -1,0 +1,74 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/21/17 13:21:10
+Anaeki1.asm						     Page 1 - 1
+
+
+				COMMENT $
+				Student: Jerome Anaeki 
+				Class: CSC 3210 
+				Assignment#: 6, Part 1
+				Description: This program tests if the MSB is set in the al register.
+				$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  B0 18			mov al,18h		;moves 24 into AL
+ 00000002  A8 80			test al,80h		;tests MSB with 10000000
+ 00000004  74 05			jz L1			;if ZF=1, jump to L1 ; else, continue
+ 00000006  C0 E0 03			shl al,3		;AL=24*8
+ 00000009  EB 03			jmp L2			;jump to L2
+ 0000000B				L1:
+ 0000000B  C0 E8 02			shr al,2		;AL=24/4
+ 0000000E				L2:				;exit
+
+					invoke ExitProcess,0
+ 0000000E  6A 00	   *	    push   +000000000h
+ 00000010  E8 00000000 E   *	    call   ExitProcess
+ 00000015			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/21/17 13:21:10
+Anaeki1.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000015 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000015 Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000000B _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000000E _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+
+	   0 Warnings
+	   0 Errors
