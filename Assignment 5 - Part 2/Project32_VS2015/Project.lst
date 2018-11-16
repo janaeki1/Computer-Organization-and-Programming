@@ -1,0 +1,111 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/06/17 22:42:39
+Anaeki2.asm						     Page 1 - 1
+
+
+				COMMENT $
+				Student: Jerome Anaeki 
+				Class: CSC 3210 
+				Assignment#: 5, Part 2
+				Description: This program implements the following: 
+				while (X>0)
+					{
+					if (X!=3  AND (X<A OR X>B)
+						{
+						X=X-2
+						}
+					else
+						{
+						X=X-1
+						}
+					}
+					endwhile
+
+				A, B, and X are 32-bit signed integer variables.$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.data
+ 00000000 00000005		a SDWORD 5
+ 00000004 00000006		b SDWORD 6
+ 00000008 0000000B		x SDWORD 11
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  A1 00000000 R		mov eax,a
+ 00000005  8B 1D 00000004 R		mov ebx,b
+ 0000000B				whileLoop:
+ 0000000B  83 3D 00000008 R		cmp x,0
+	   00
+ 00000012  7E 2A			jle endWhile
+ 00000014  83 3D 00000008 R		cmp x,3
+	   03
+ 0000001B  74 19			je L2
+ 0000001D  39 05 00000008 R		cmp x,eax
+ 00000023  7C 08			jl L1
+ 00000025  39 1D 00000008 R		cmp x,ebx
+ 0000002B  7E 09			jle L2
+ 0000002D				L1:
+ 0000002D  83 2D 00000008 R		sub x,2
+	   02
+ 00000034  EB D5			jmp whileLoop
+ 00000036				L2:
+ 00000036  FF 0D 00000008 R		dec x
+ 0000003C  EB CD			jmp whileLoop
+ 0000003E				endWhile:
+							
+
+					invoke ExitProcess,0
+ 0000003E  6A 00	   *	    push   +000000000h
+ 00000040  E8 00000000 E   *	    call   ExitProcess
+ 00000045			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/06/17 22:42:39
+Anaeki2.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000000C DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000045 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000045 Public STDCALL
+  whileLoop  . . . . . . . . . .	L Near	 0000000B _TEXT	
+  L1 . . . . . . . . . . . . . .	L Near	 0000002D _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 00000036 _TEXT	
+  endWhile . . . . . . . . . . .	L Near	 0000003E _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+a  . . . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+b  . . . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+x  . . . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+
+	   0 Warnings
+	   0 Errors

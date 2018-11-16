@@ -1,0 +1,89 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/07/17 00:44:32
+Anaeki1.asm						     Page 1 - 1
+
+
+				COMMENT $
+				Student: Jerome Anaeki 
+				Class: CSC 3210 
+				Assignment#: 5, Part 1
+				Description: This program finds the largest element by searching an array.$
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.data
+ 00000000 01 05 FD FC 00	ary SBYTE 1,5,-3,-4,0,6,11,-9,18
+	   06 0B F7 12
+ 00000009 = 00000009		arraySize = ($-ary)
+ 00000009 00			max SBYTE ?
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  BE 00000000			mov esi,0
+ 00000005  8A 86 00000000 R		mov al,ary[esi]
+ 0000000B  A2 00000009 R		mov max,al
+ 00000010				whileLoop:
+ 00000010  46				inc esi
+ 00000011  81 FE 00000009		cmp esi,arraySize
+ 00000017  7D 15			jge endWhile
+ 00000019  8A 86 00000000 R		mov al,ary[esi]
+ 0000001F  3A 05 00000009 R		cmp al,max
+ 00000025  7E E9			jle whileLoop
+ 00000027  A2 00000009 R		mov max,al
+ 0000002C  EB E2			jmp whileLoop
+ 0000002E				endWhile:
+					
+							
+
+					invoke ExitProcess,0
+ 0000002E  6A 00	   *	    push   +000000000h
+ 00000030  E8 00000000 E   *	    call   ExitProcess
+ 00000035			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/07/17 00:44:32
+Anaeki1.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000000A DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000035 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000035 Public STDCALL
+  whileLoop  . . . . . . . . . .	L Near	 00000010 _TEXT	
+  endWhile . . . . . . . . . . .	L Near	 0000002E _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+arraySize  . . . . . . . . . . .	Number	 00000009h   
+ary  . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+max  . . . . . . . . . . . . . .	Byte	 00000009 _DATA	
+
+	   0 Warnings
+	   0 Errors
